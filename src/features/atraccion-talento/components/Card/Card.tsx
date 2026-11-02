@@ -8,7 +8,7 @@ const Card = ({area, titulo, ubicacion, descripcion, perfil}: CardProps) => {
     return (
         <HeroCard className="gap-3 p-6">
             <HeroCard.Header className="items-start gap-2">
-                <span className="w-fit rounded-full bg-amber-100 px-3 py-1 text-sm font-bold text-zinc-900">
+                <span className="w-fit rounded-full bg-copachisa/20 px-3 py-1 text-sm font-bold text-zinc-900">
                     {area}
                 </span>
 
@@ -43,7 +43,7 @@ const Card = ({area, titulo, ubicacion, descripcion, perfil}: CardProps) => {
             <HeroCard.Footer>
                 <Link
                     to="/#registro"
-                    className="rounded-lg bg-amber-400 px-6 py-2 font-bold text-zinc-900 hover:bg-amber-500"
+                    className="rounded-lg bg-copachisa px-6 py-2 font-bold text-zinc-900 hover:bg-copachisa/85"
                 >
                     Postularme
                 </Link>

@@ -38,7 +38,7 @@ const Contacto = () => {
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-4 inline-flex h-10 w-fit items-center justify-center gap-2 rounded-lg bg-amber-400 px-6 font-bold text-zinc-900 transition hover:bg-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+                        className="mt-4 inline-flex h-10 w-fit items-center justify-center gap-2 rounded-lg bg-copachisa px-6 font-bold text-zinc-900 transition hover:bg-copachisa/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-copachisa"
                     >
                         <MdWhatsapp size={20} aria-hidden="true" />
                         Contactar por WhatsApp

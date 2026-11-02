@@ -133,7 +133,7 @@ const Registro = () => {
 
                     <Button
                         type="submit"
-                        className="w-fit rounded-lg bg-amber-400 px-6 font-bold text-zinc-900 hover:bg-amber-500 md:col-span-2"
+                        className="w-fit rounded-lg bg-copachisa px-6 font-bold text-zinc-900 hover:bg-copachisa/85 md:col-span-2"
                     >
                         Registrar mi perfil
                     </Button>
