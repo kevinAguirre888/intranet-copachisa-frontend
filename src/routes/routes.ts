@@ -14,4 +14,8 @@ export const router = createBrowserRouter([
       { index: true, Component: AtraccionTalentoPage }
     ]
   },
-]);
+],
+  {
+    basename: import.meta.env.BASE_URL,
+  }
+);
