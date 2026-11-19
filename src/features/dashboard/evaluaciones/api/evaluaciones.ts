@@ -1,6 +1,6 @@
 import { api } from "@/shared/api/client";
 import type { EvaluacionCreate, EvaluacionRead, EvaluacionUpdate } from "../types/evaluaciones";
-import type { estadoUpdate } from "@/shared/types/estado";
+import type { EstadoUpdate } from "@/shared/types/estados";
 
 const BASE_URL = `api/v1/evaluaciones`;
 
@@ -34,7 +34,7 @@ export const eliminarEvaluacion = async (idEvaluacion: number) => {
 };
 
 
-export const actualizarEstadoEvaluacion = async (idEvaluacion: number, body: Partial<estadoUpdate>) => {
+export const actualizarEstadoEvaluacion = async (idEvaluacion: number, body: Partial<EstadoUpdate>) => {
     const { data } = await api.patch<EvaluacionRead>(`${BASE_URL}/${idEvaluacion}/estado`, body);
     return data;
 }
