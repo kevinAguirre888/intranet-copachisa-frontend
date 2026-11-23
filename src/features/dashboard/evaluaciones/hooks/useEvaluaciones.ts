@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   actualizarEstadoEvaluacion,
+  buscarEvaluacionPorId,
   obtenerEvaluaciones,
   actualizarEvaluacion,
 } from "../api/evaluaciones";
-import type { EvaluacionRead, EvaluacionUpdate } from "../types/evaluaciones";
+import type {
+  EvaluacionCompleta,
+  EvaluacionRead,
+  EvaluacionUpdate,
+} from "../types/evaluaciones";
 
 export const useEvaluaciones = () => {
   const [evaluaciones, setEvaluaciones] = useState<EvaluacionRead[]>([]); // Estado que comienza con una lista vacía de evaluaciones
@@ -67,4 +72,42 @@ export const useEvaluaciones = () => {
   };
 
   return { evaluaciones, cargando, error, cambiarEstatus, editarEvaluacion };
+};
+
+/**
+ * Obtiene una sola evaluación con sus secciones, por ejemplo para previsualizarla.
+ * Es un hook aparte de useEvaluaciones porque ese carga la lista completa para la tabla,
+ * y aquí solo se necesita un registro que depende del id de la ruta.
+ *
+ * @param idEvaluacion - ID de la evaluación a consultar.
+ */
+export const useEvaluacionCompleta = (idEvaluacion: number) => {
+  const [evaluacion, setEvaluacion] = useState<EvaluacionCompleta | null>(null);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Se vuelve a consultar si cambia el id de la evaluación
+  useEffect(() => {
+    const cargar = async () => {
+      try {
+        setEvaluacion(await buscarEvaluacionPorId(idEvaluacion));
+      } catch {
+        setError("No se pudo cargar la evaluación.");
+      } finally {
+        setCargando(false);
+      }
+    };
+    cargar();
+  }, [idEvaluacion]);
+
+  // Solo las secciones activas, ordenadas por el campo "orden"
+  const secciones = useMemo(
+    () =>
+      (evaluacion?.secciones ?? [])
+        .filter((s) => s.activo)
+        .sort((a, b) => a.orden - b.orden),
+    [evaluacion],
+  );
+
+  return { evaluacion, secciones, cargando, error };
 };
