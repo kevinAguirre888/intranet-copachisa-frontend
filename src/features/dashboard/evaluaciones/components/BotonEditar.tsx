@@ -11,7 +11,7 @@ export const BotonEditar = ({ onPress }: { onPress: () => void }) => {
       <Button
         isIconOnly
         aria-label="Editar datos de evaluación"
-        className="text-black bg-copachisa hover:bg-copachisa/85"
+        className="text-black bg-neutral-200 hover:bg-neutral-300"
         onPress={onPress}
       >
         <MdEdit />
