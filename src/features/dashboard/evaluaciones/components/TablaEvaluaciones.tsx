@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table } from "@heroui/react";
+import { Skeleton, Table } from "@heroui/react";
 import { formatearFecha } from "@/shared/utils/fechas";
 import { SwitchEstado } from "@/shared/components/SwitchEstado";
 import { useEvaluaciones } from "../hooks/useEvaluaciones";
@@ -13,7 +13,6 @@ export const TablaEvaluaciones = () => {
     useEvaluaciones(); // Hooks para lógica de estados de UI
   const [editando, setEditando] = useState<EvaluacionRead | null>(null); // Estado para saber si está editando una evaluación.
 
-  if (cargando) return <p>Cargando evaluaciones...</p>; // TODO: Añadir un skeleton de HeroUI
   if (error) return <p>{error}</p>;
 
   return (
@@ -30,7 +29,18 @@ export const TablaEvaluaciones = () => {
               <Table.Column>Acciones</Table.Column>
             </Table.Header>
             <Table.Body>
-              {evaluaciones.map((e) => (
+              {cargando &&
+                Array.from({ length: 1 }).map((_, i) => (
+                  <Table.Row key={`skeleton-${i}`}>
+                    <Table.Cell><Skeleton className="h-4 w-8 rounded" /></Table.Cell>
+                    <Table.Cell><Skeleton className="h-4 w-48 rounded" /></Table.Cell>
+                    <Table.Cell><Skeleton className="h-6 w-10 rounded-full" /></Table.Cell>
+                    <Table.Cell><Skeleton className="h-4 w-24 rounded" /></Table.Cell>
+                    <Table.Cell><Skeleton className="h-4 w-24 rounded" /></Table.Cell>
+                    <Table.Cell><Skeleton className="h-8 w-20 rounded" /></Table.Cell>
+                  </Table.Row>
+                ))}
+              {!cargando && evaluaciones.map((e) => (
                 <Table.Row key={e.idEvaluacion}>
                   <Table.Cell>{e.idEvaluacion}</Table.Cell>
                   <Table.Cell>{e.titulo}</Table.Cell>

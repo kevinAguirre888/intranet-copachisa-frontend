@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router";
+import { Skeleton } from "@heroui/react";
 import { MdArrowBack } from "react-icons/md";
 import { useEvaluacionCompleta } from "../hooks/useEvaluaciones";
 import { useEscalas } from "../hooks/useEscalas";
@@ -10,7 +11,6 @@ export const EvaluacionPrevisualizacionPage = () => {
     Number(idEvaluacion),
   );
 
-  // Solo se piden las escalas si algún contenido activo es de tipo "Escala"
   const hayEscalas = secciones.some((s) =>
     s.contenidos.some((c) => c.activo && c.tipoRespuesta.tipo === "Escala"),
   );
@@ -29,8 +29,23 @@ export const EvaluacionPrevisualizacionPage = () => {
       </header>
 
       <main className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-6">
-        {cargando && <p>Cargando evaluación...</p>}{" "}
-        {/* TODO: Añadir un skeleton de HeroUI */}
+        {cargando && (
+          <>
+            <div className="rounded-sm border-t-4 border-copachisa bg-white px-8 py-6 shadow-sm">
+              <Skeleton className="h-8 w-2/3 rounded" />
+            </div>
+            {Array.from({ length: 2 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-3 rounded-sm bg-white px-8 py-6 shadow-sm"
+              >
+                <Skeleton className="h-6 w-1/3 rounded" />
+                <Skeleton className="h-4 w-full rounded" />
+                <Skeleton className="h-4 w-5/6 rounded" />
+              </div>
+            ))}
+          </>
+        )}
         {error && <p>{error}</p>}
         {evaluacion && (
           <>
