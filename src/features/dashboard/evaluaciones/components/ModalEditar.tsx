@@ -48,7 +48,7 @@ export const ModalEditar = ({ evaluacion, onCerrar, onGuardar }: Props) => {
       isOpen={evaluacion !== null}
       onOpenChange={(abierto) => !abierto && onCerrar()}
     >
-      <Modal.Backdrop>
+      <Modal.Backdrop isDismissable={false}>
         <Modal.Container placement="auto">
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
