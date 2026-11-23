@@ -1,7 +1,9 @@
-import { MdOutlineAssignment, MdListAlt, MdOutlineQuiz } from "react-icons/md";
+import { MdOutlineAssignment, MdFormatListNumbered, MdOutlineQuiz } from "react-icons/md";
 import { Description, Dropdown, Label } from "@heroui/react";
 import { useNavigate } from "react-router";
 import { BotonAcciones } from "./BotonAcciones";
+import { useState } from "react";
+import { ModalSecciones } from "./ModalSecciones";
 
 type Props = {
   idEvaluacion: number;
@@ -15,13 +17,20 @@ type Props = {
 export const DropdownAcciones = ({ idEvaluacion }: Props) => {
   const navigate = useNavigate();
 
+  const [ModalSeccionesAbierto, setModalSeccionesAbierto] = useState(false); // El modal de las secciones permanece cerrado al montar el componente
+
   const manejarAccion = (key: React.Key) => {
     if (key === "previsualizar") {
       navigate(`/dashboard/evaluaciones/${idEvaluacion}/previsualizacion`);
     }
+
+    if (key == "secciones") {
+      setModalSeccionesAbierto(true);
+    }
   };
 
   return (
+    <>
     <Dropdown>
       <BotonAcciones />
       <Dropdown.Popover>
@@ -38,9 +47,9 @@ export const DropdownAcciones = ({ idEvaluacion }: Props) => {
               <Description>Ver secciones y contenido</Description>
             </div>
           </Dropdown.Item>
-          <Dropdown.Item id="open-file" textValue="Open file">
+          <Dropdown.Item id="secciones" textValue="Administrar secciones">
             <div className="flex h-8 items-start justify-center pt-px">
-              <MdListAlt className="size-4 shrink-0 text-muted" />
+              <MdFormatListNumbered  className="size-4 shrink-0 text-muted" />
             </div>
             <div className="flex flex-col">
               <Label>Administrar secciones</Label>
@@ -59,5 +68,12 @@ export const DropdownAcciones = ({ idEvaluacion }: Props) => {
         </Dropdown.Menu>
       </Dropdown.Popover>
     </Dropdown>
+
+    <ModalSecciones
+      idEvaluacion={idEvaluacion}
+      isOpen={ModalSeccionesAbierto}
+      onOpenChange={setModalSeccionesAbierto}
+    />
+    </>
   );
 };
