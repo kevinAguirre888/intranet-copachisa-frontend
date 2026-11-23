@@ -5,6 +5,8 @@ import LandingLayout from "@/features/landing/layouts/LandingLayout";
 import AtraccionTalentoPage from "@/features/atraccion-talento/pages/AtraccionTalentoPage";
 /* import LandingPage from "@/features/landing/pages/LandingPage";
  */
+import HomePage from "@/features/home/pages/HomePage";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +15,10 @@ export const router = createBrowserRouter([
       /* { index: true, Component: LandingPage }, */
       { index: true, Component: AtraccionTalentoPage }
     ]
+  },
+  {
+    path: "/home",
+    Component: HomePage,
   },
 ],
   {
