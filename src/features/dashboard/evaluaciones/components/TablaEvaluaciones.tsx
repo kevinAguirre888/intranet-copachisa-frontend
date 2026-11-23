@@ -6,6 +6,7 @@ import { useEvaluaciones } from "../hooks/useEvaluaciones";
 import { BotonEditar } from "./BotonEditar";
 import { ModalEditar } from "./ModalEditar";
 import type { EvaluacionRead } from "../types/evaluaciones";
+import { DropdownAcciones } from "./DropdownAcciones";
 
 export const TablaEvaluaciones = () => {
   const { evaluaciones, cargando, error, cambiarEstatus, editarEvaluacion } =
@@ -47,7 +48,10 @@ export const TablaEvaluaciones = () => {
                     {formatearFecha(e.fechaActualizacion)}
                   </Table.Cell>
                   <Table.Cell>
-                    <BotonEditar onPress={() => setEditando(e)} />
+                    <div className="flex items-center gap-2">
+                      <BotonEditar onPress={() => setEditando(e)} />
+                      <DropdownAcciones idEvaluacion={e.idEvaluacion} />
+                    </div>
                   </Table.Cell>
                 </Table.Row>
               ))}
