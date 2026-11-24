@@ -32,39 +32,52 @@ export const TablaEvaluaciones = () => {
               {cargando &&
                 Array.from({ length: 1 }).map((_, i) => (
                   <Table.Row key={`skeleton-${i}`}>
-                    <Table.Cell><Skeleton className="h-4 w-8 rounded" /></Table.Cell>
-                    <Table.Cell><Skeleton className="h-4 w-48 rounded" /></Table.Cell>
-                    <Table.Cell><Skeleton className="h-6 w-10 rounded-full" /></Table.Cell>
-                    <Table.Cell><Skeleton className="h-4 w-24 rounded" /></Table.Cell>
-                    <Table.Cell><Skeleton className="h-4 w-24 rounded" /></Table.Cell>
-                    <Table.Cell><Skeleton className="h-8 w-20 rounded" /></Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-4 w-8 rounded" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-4 w-48 rounded" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-6 w-10 rounded-full" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-4 w-24 rounded" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-4 w-24 rounded" />
+                    </Table.Cell>
+                    <Table.Cell>
+                      <Skeleton className="h-8 w-20 rounded" />
+                    </Table.Cell>
                   </Table.Row>
                 ))}
-              {!cargando && evaluaciones.map((e) => (
-                <Table.Row key={e.idEvaluacion}>
-                  <Table.Cell>{e.idEvaluacion}</Table.Cell>
-                  <Table.Cell>{e.titulo}</Table.Cell>
-                  <Table.Cell>
-                    <SwitchEstado
-                      activo={e.activo}
-                      nombreRecurso="la evaluación"
-                      onConfirmar={(nuevoValor) =>
-                        cambiarEstatus(e.idEvaluacion, nuevoValor)
-                      }
-                    />
-                  </Table.Cell>
-                  <Table.Cell>{formatearFecha(e.fechaCreacion)}</Table.Cell>
-                  <Table.Cell>
-                    {formatearFecha(e.fechaActualizacion)}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <div className="flex items-center gap-2">
-                      <BotonEditar onPress={() => setEditando(e)} />
-                      <DropdownAcciones idEvaluacion={e.idEvaluacion} />
-                    </div>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
+              {!cargando &&
+                evaluaciones.map((e) => (
+                  <Table.Row key={e.idEvaluacion}>
+                    <Table.Cell>{e.idEvaluacion}</Table.Cell>
+                    <Table.Cell>{e.titulo}</Table.Cell>
+                    <Table.Cell>
+                      <SwitchEstado
+                        activo={e.activo}
+                        nombreRecurso="la evaluación"
+                        onConfirmar={(nuevoValor) =>
+                          cambiarEstatus(e.idEvaluacion, nuevoValor)
+                        }
+                      />
+                    </Table.Cell>
+                    <Table.Cell>{formatearFecha(e.fechaCreacion)}</Table.Cell>
+                    <Table.Cell>
+                      {formatearFecha(e.fechaActualizacion)}
+                    </Table.Cell>
+                    <Table.Cell>
+                      <div className="flex items-center gap-2">
+                        <BotonEditar onPress={() => setEditando(e)} />
+                        <DropdownAcciones idEvaluacion={e.idEvaluacion} />
+                      </div>
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
             </Table.Body>
           </Table.Content>
         </Table.ScrollContainer>
