@@ -1,15 +1,15 @@
 import { Link, useParams } from "react-router";
 import { Skeleton } from "@heroui/react";
 import { MdArrowBack } from "react-icons/md";
+import { EstadoError } from "@/shared/components/EstadoError";
 import { useEvaluacionCompleta } from "../hooks/useEvaluaciones";
 import { useEscalas } from "../hooks/useEscalas";
 import { SeccionPrevisualizacion } from "../components/SeccionPrevisualizacion";
 
 export const EvaluacionPrevisualizacionPage = () => {
   const { idEvaluacion } = useParams();
-  const { evaluacion, secciones, cargando, error } = useEvaluacionCompleta(
-    Number(idEvaluacion),
-  );
+  const { evaluacion, secciones, cargando, error, recargar } =
+    useEvaluacionCompleta(Number(idEvaluacion));
 
   const hayEscalas = secciones.some((s) =>
     s.contenidos.some((c) => c.activo && c.tipoRespuesta.tipo === "Escala"),
@@ -46,7 +46,7 @@ export const EvaluacionPrevisualizacionPage = () => {
             ))}
           </>
         )}
-        {error && <p>{error}</p>}
+        {error && <EstadoError mensaje={error} onReintentar={recargar} />}
         {evaluacion && (
           <>
             <div className="rounded-sm border-t-4 border-copachisa bg-white px-8 py-6 shadow-sm">
