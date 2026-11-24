@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Skeleton, Table } from "@heroui/react";
 import { formatearFecha } from "@/shared/utils/fechas";
 import { SwitchEstado } from "@/shared/components/SwitchEstado";
+import { EstadoError } from "@/shared/components/EstadoError";
 import { useEvaluaciones } from "../hooks/useEvaluaciones";
 import { BotonEditar } from "./BotonEditar";
 import { ModalEditar } from "./ModalEditar";
@@ -9,11 +10,17 @@ import type { EvaluacionRead } from "../types/evaluaciones";
 import { DropdownAcciones } from "./DropdownAcciones";
 
 export const TablaEvaluaciones = () => {
-  const { evaluaciones, cargando, error, cambiarEstatus, editarEvaluacion } =
-    useEvaluaciones(); // Hooks para lógica de estados de UI
+  const {
+    evaluaciones,
+    cargando,
+    error,
+    recargar,
+    cambiarEstatus,
+    editarEvaluacion,
+  } = useEvaluaciones(); // Hooks para lógica de estados de UI
   const [editando, setEditando] = useState<EvaluacionRead | null>(null); // Estado para saber si está editando una evaluación.
 
-  if (error) return <p>{error}</p>;
+  if (error) return <EstadoError mensaje={error} onReintentar={recargar} />;
 
   return (
     <>
