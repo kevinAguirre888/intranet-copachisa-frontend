@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   actualizarEstadoEvaluacion,
   buscarEvaluacionPorId,
@@ -16,19 +16,24 @@ export const useEvaluaciones = () => {
   const [cargando, setCargando] = useState(true); // Estado que establece "cargando" como verdadero por defecto
   const [error, setError] = useState<string | null>(null); // Estado que establece un posible error como null mientras no haya ocurrido
 
+  // Función para cargar las evaluaciones; useCallback conserva la misma referencia entre renders
+  const cargar = useCallback(async () => {
+    setCargando(true); // Establece el estado cargando como true
+    setError(null); // Limpia el error después de establecer el estado de carga
+    try {
+      setEvaluaciones(await obtenerEvaluaciones()); // Se intenta hacer la solicitud para obtener la lista de evaluaciones
+    } catch {
+      // Si ocurre un error se establece un mensaje para el estado de error
+      setError("No se lograron cargar las evaluaciones.");
+    } finally {
+      setCargando(false); // Al finalizar siempre se establece "cargando" como falso
+    }
+  }, []); // La función se crea una sola vez y mantiene la misma referencia
+
   // Hook que se utiliza para obtener las evaluaciones registradas en el backend
   useEffect(() => {
-    const cargar = async () => {
-      try {
-        setEvaluaciones(await obtenerEvaluaciones()); // Solicitud al backend
-      } catch {
-        setError("No se pudieron cargar las evaluaciones.");
-      } finally {
-        setCargando(false); // Al finalizar siempre se establece "cargando" como falso
-      }
-    };
     cargar();
-  }, []); // Los corchetes definen que este bloque de código sólo se ejecuta una sola vez después al montar el componente
+  }, [cargar]); // La función se ejecuta al montar un componente y solo se repetiría si cargar cambiara
 
   // Hook que se utiliza para actualizar el estado de una evaluación
   const cambiarEstatus = async (id: number, nuevoValor: boolean) => {
@@ -71,7 +76,14 @@ export const useEvaluaciones = () => {
     }
   };
 
-  return { evaluaciones, cargando, error, cambiarEstatus, editarEvaluacion };
+  return {
+    evaluaciones,
+    cargando,
+    error,
+    recargar: cargar,
+    cambiarEstatus,
+    editarEvaluacion,
+  };
 };
 
 /**
@@ -87,18 +99,21 @@ export const useEvaluacionCompleta = (idEvaluacion: number) => {
   const [error, setError] = useState<string | null>(null);
 
   // Se vuelve a consultar si cambia el id de la evaluación
+  const cargar = useCallback(async () => {
+    setCargando(true); // Establece el estado cargando como true
+    setError(null); // Limpia el error después de establecer el estado de carga
+    try {
+      setEvaluacion(await buscarEvaluacionPorId(idEvaluacion)); // Se intenta hacer la solicitud para obtener la evaluación por ID
+    } catch {
+      setError("No se pudo cargar la evaluación.");
+    } finally {
+      setCargando(false);
+    }
+  }, [idEvaluacion]); // Se vuelve a ejecutar la función sólo si se cambia el ID
+
   useEffect(() => {
-    const cargar = async () => {
-      try {
-        setEvaluacion(await buscarEvaluacionPorId(idEvaluacion));
-      } catch {
-        setError("No se pudo cargar la evaluación.");
-      } finally {
-        setCargando(false);
-      }
-    };
     cargar();
-  }, [idEvaluacion]);
+  }, [cargar]);
 
   // Solo las secciones activas, ordenadas por el campo "orden"
   const secciones = useMemo(
@@ -109,5 +124,5 @@ export const useEvaluacionCompleta = (idEvaluacion: number) => {
     [evaluacion],
   );
 
-  return { evaluacion, secciones, cargando, error };
+  return { evaluacion, secciones, cargando, error, recargar: cargar };
 };
