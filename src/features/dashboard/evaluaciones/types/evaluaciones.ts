@@ -5,7 +5,6 @@ export interface TipoRespuesta {
   activo: boolean;
 }
 
-// Escala del catálogo. "valor" llega como string (ej. "1.00") porque el backend usa Decimal
 export interface Escala {
   idEscala: number;
   valor: string;
@@ -49,7 +48,7 @@ export interface EvaluacionRead {
 }
 
 export interface EvaluacionUpdate {
-  titulo?: string;
+  titulo: string;
 }
 
 export interface EvaluacionCompleta {
