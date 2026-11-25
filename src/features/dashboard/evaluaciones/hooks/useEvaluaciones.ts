@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
+  actualizarEvaluacion,
   actualizarEstadoEvaluacion,
   buscarEvaluacionPorId,
+  crearEvaluacion,
   obtenerEvaluaciones,
-  actualizarEvaluacion,
 } from "../api/evaluaciones";
 import type {
   EvaluacionCompleta,
@@ -42,8 +43,8 @@ export const useEvaluaciones = () => {
         activo: nuevoValor,
       });
 
-      setEvaluaciones((actuales) =>
-        actuales.map((evaluacion) =>
+      setEvaluaciones((evaluacionesActuales) =>
+        evaluacionesActuales.map((evaluacion) =>
           evaluacion.idEvaluacion === id ? actualizada : evaluacion,
         ),
       );
@@ -64,8 +65,8 @@ export const useEvaluaciones = () => {
         datosActualizados,
       );
 
-      setEvaluaciones((actuales) =>
-        actuales.map((evaluacion) =>
+      setEvaluaciones((evaluacionesActuales) =>
+        evaluacionesActuales.map((evaluacion) =>
           evaluacion.idEvaluacion === id ? evaluacionActualizada : evaluacion,
         ),
       );
@@ -76,11 +77,20 @@ export const useEvaluaciones = () => {
     }
   };
 
+  const agregarEvaluacion = async (titulo: string) => {
+    const nuevaEvaluacion = await crearEvaluacion({ titulo });
+    setEvaluaciones((evaluacionesActuales) => [
+      nuevaEvaluacion,
+      ...evaluacionesActuales,
+    ]);
+  };
+
   return {
     evaluaciones,
     cargando,
     error,
     recargar: cargar,
+    agregarEvaluacion,
     cambiarEstatus,
     editarEvaluacion,
   };
