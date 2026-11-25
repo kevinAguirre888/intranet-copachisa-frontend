@@ -9,3 +9,12 @@ export interface SwitchEstadoProps {
     onConfirmar: (nuevoValor: boolean) => void; // Se ejecuta al confirmar; el componente padre decide qué hacer con el nuevo valor.
     nombreRecurso?: string; // Nombre del recurso con artículo para los textos, ej. "la evaluación".
 }
+
+// Props del diálogo de confirmación ConfirmarEstado (lo usan SwitchEstado y los botones de activar/desactivar).
+export interface ConfirmarEstadoProps {
+    isOpen: boolean; // Indica si el diálogo está abierto.
+    onOpenChange: (abierto: boolean) => void; // Cambia el estado de apertura del diálogo.
+    activo: boolean; // Estado actual del recurso; el diálogo propone el contrario.
+    onConfirmar: (nuevoValor: boolean) => void; // Se ejecuta al confirmar; el componente padre decide qué hacer con el nuevo valor.
+    nombreRecurso?: string; // Nombre del recurso con artículo para los textos, ej. "la sección".
+}

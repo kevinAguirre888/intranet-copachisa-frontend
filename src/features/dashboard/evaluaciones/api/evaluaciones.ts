@@ -1,5 +1,5 @@
 import { api } from "@/shared/api/client";
-import type { EvaluacionCreate, EvaluacionRead, EvaluacionUpdate } from "../types/evaluaciones";
+import type { EvaluacionCompleta, EvaluacionCreate, EvaluacionRead, EvaluacionUpdate } from "../types/evaluaciones";
 import type { EstadoUpdate } from "@/shared/types/estados";
 
 const BASE_URL = `api/v1/evaluaciones`;
@@ -11,8 +11,8 @@ export const obtenerEvaluaciones = async (): Promise<EvaluacionRead[]> => {
 };
 
 
-export const buscarEvaluacionPorId = async (idEvaluacion: number): Promise<EvaluacionRead> => {
-    const { data } = await api.get<EvaluacionRead>(`${BASE_URL}/${idEvaluacion}`);
+export const buscarEvaluacionPorId = async (idEvaluacion: number): Promise<EvaluacionCompleta> => {
+    const { data } = await api.get<EvaluacionCompleta>(`${BASE_URL}/${idEvaluacion}`);
     return data;
 };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { AlertDialog, Button, Switch } from "@heroui/react";
+import { Switch } from "@heroui/react";
 import type { SwitchEstadoProps } from "@/shared/types/estados";
+import { ConfirmarEstado } from "./ConfirmarEstado";
 
 export const SwitchEstado = ({
   activo,
@@ -8,11 +9,6 @@ export const SwitchEstado = ({
   nombreRecurso = "el registro",
 }: SwitchEstadoProps) => {
   const [abierto, setAbierto] = useState(false);
-
-  const confirmar = () => {
-    onConfirmar(!activo);
-    setAbierto(false);
-  };
 
   return (
     <>
@@ -29,35 +25,13 @@ export const SwitchEstado = ({
         </Switch.Content>
       </Switch>
 
-      <AlertDialog.Backdrop isOpen={abierto} onOpenChange={setAbierto}>
-        <AlertDialog.Container>
-          <AlertDialog.Dialog>
-            <AlertDialog.Header>
-              <AlertDialog.Icon status="warning" />
-              <AlertDialog.Heading>
-                {`¿${activo ? "Desactivar" : "Activar"} ${nombreRecurso}?`}
-              </AlertDialog.Heading>
-            </AlertDialog.Header>
-            <AlertDialog.Body>
-              {activo
-                ? `Esta acción desactivará ${nombreRecurso} y dejará de estar visible para los colaboradores. ¿Deseas continuar?`
-                : `Esta acción activará ${nombreRecurso} y quedará visible para los colaboradores. ¿Deseas continuar?`}
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <AlertDialog.CloseTrigger></AlertDialog.CloseTrigger>
-              <Button slot="close" variant="tertiary">
-                Cancelar
-              </Button>
-              <Button
-                onPress={confirmar}
-                className="text-black bg-copachisa hover:bg-copachisa/85"
-              >
-                Confirmar
-              </Button>
-            </AlertDialog.Footer>
-          </AlertDialog.Dialog>
-        </AlertDialog.Container>
-      </AlertDialog.Backdrop>
+      <ConfirmarEstado
+        isOpen={abierto}
+        onOpenChange={setAbierto}
+        activo={activo}
+        onConfirmar={onConfirmar}
+        nombreRecurso={nombreRecurso}
+      />
     </>
   );
 };
