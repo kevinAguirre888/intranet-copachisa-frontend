@@ -4,9 +4,9 @@ import { MdArrowBack } from "react-icons/md";
 import { EstadoError } from "@/shared/components/EstadoError";
 import { useEvaluacionCompleta } from "../hooks/useEvaluaciones";
 import { useEscalas } from "../hooks/useEscalas";
-import { SeccionPrevisualizacion } from "../components/SeccionPrevisualizacion";
+import { SeccionEvaluacion } from "../components/Secciones/SeccionEvaluacion";
 
-export const EvaluacionPrevisualizacionPage = () => {
+export const PrevisualizacionEvaluacionPage = () => {
   const { idEvaluacion } = useParams();
   const { evaluacion, secciones, cargando, error, recargar } =
     useEvaluacionCompleta(Number(idEvaluacion));
@@ -56,7 +56,7 @@ export const EvaluacionPrevisualizacionPage = () => {
             </div>
 
             {secciones.map((s, i) => (
-              <SeccionPrevisualizacion
+              <SeccionEvaluacion
                 key={s.idSeccion}
                 seccion={s}
                 numero={i + 1}

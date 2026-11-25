@@ -5,7 +5,7 @@ import DashboardLayout from "@/features/dashboard/layouts/DashboardLayout";
 
 import AtraccionTalentoPage from "@/features/atraccion-talento/pages/AtraccionTalentoPage";
 import { EvaluacionesPage } from "@/features/dashboard/evaluaciones/pages/EvaluacionesPage";
-import { EvaluacionPrevisualizacionPage } from "@/features/dashboard/evaluaciones/pages/EvaluacionPrevisualizacionPage";
+import { PrevisualizacionEvaluacionPage } from "@/features/dashboard/evaluaciones/pages/PrevisualizacionEvaluacionPage";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
           { index: true, Component: EvaluacionesPage },
           {
             path: ":idEvaluacion/previsualizacion",
-            Component: EvaluacionPrevisualizacionPage,
+            Component: PrevisualizacionEvaluacionPage,
           },
         ],
       },

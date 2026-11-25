@@ -7,8 +7,8 @@ import {
   MdOutlineToggleOn,
   MdOutlineQuiz,
 } from "react-icons/md";
-import type { SeccionEvaluacionRead, SeccionEvaluacionUpdate } from "../types/secciones";
-import { EditarSeccion } from "./EditarSeccion";
+import type { SeccionEvaluacionRead, SeccionEvaluacionUpdate } from "../../types/secciones";
+import { ModalEditarSeccion } from "./ModalEditarSeccion";
 import { ConfirmarEstado } from "@/shared/components/ConfirmarEstado";
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
   onEditar: (id: number, cambios: Partial<SeccionEvaluacionUpdate>) => Promise<void>; // Actualiza título y/o descripción de una sección
 };
 
-export const AccordionSeccion = ({ secciones, onCambiarEstado, onEditar }: Props) => {
+export const AccordionSecciones = ({ secciones, onCambiarEstado, onEditar }: Props) => {
   const [editando, setEditando] = useState<SeccionEvaluacionRead | null>(null); // Sección que se está editando, null si ninguna
   const [cambiandoEstado, setCambiandoEstado] = useState<SeccionEvaluacionRead | null>(null); // Sección cuyo estado se va a confirmar, null si ninguna
 
@@ -69,7 +69,7 @@ export const AccordionSeccion = ({ secciones, onCambiarEstado, onEditar }: Props
       ))}
     </Accordion>
 
-    <EditarSeccion
+    <ModalEditarSeccion
       key={editando?.idSeccion}
       seccion={editando}
       onCerrar={() => setEditando(null)}

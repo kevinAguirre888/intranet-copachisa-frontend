@@ -1,7 +1,7 @@
 import { Button, Modal, Spinner, Surface } from "@heroui/react";
 import { MdFormatListNumbered } from "react-icons/md";
-import { AccordionSeccion } from "./AccordionSeccion";
-import { useSeccionesEvaluacion } from "../hooks/useSecciones";
+import { AccordionSecciones } from "./AccordionSecciones";
+import { useSeccionesEvaluacion } from "../../hooks/useSecciones";
 
 // Parámetros del Modal
 type Props = {
@@ -26,7 +26,7 @@ export const ModalSecciones = ({
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Icon className="bg-copachisa/40 text-black">
+              <Modal.Icon className="bg-neutral-200">
                 <MdFormatListNumbered className="size-5" />
               </Modal.Icon>
               <Modal.Heading>Secciones de la evaluación</Modal.Heading>
@@ -50,7 +50,7 @@ export const ModalSecciones = ({
                   </p>
                 )}
                 {!cargando && !error && secciones.length > 0 && (
-                  <AccordionSeccion
+                  <AccordionSecciones
                     secciones={secciones}
                     onCambiarEstado={cambiarEstatus}
                     onEditar={editarSeccion}

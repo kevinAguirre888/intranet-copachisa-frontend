@@ -13,7 +13,7 @@ import { MdLayers } from "react-icons/md";
 import type {
   SeccionEvaluacionRead,
   SeccionEvaluacionUpdate,
-} from "../types/secciones";
+} from "../../types/secciones";
 
 // Tipos de los parámetros del componente
 type Props = {
@@ -37,7 +37,7 @@ const DESCRIPCION_MAX = 255;
  * @param seccion - Objeto de la sección a editar.
  * @param onCerrar - Función que proporciona el componente padre para cambiar el estado y cerrar el modal.
  */
-export const EditarSeccion = ({ seccion, onCerrar, onGuardar }: Props) => {
+export const ModalEditarSeccion = ({ seccion, onCerrar, onGuardar }: Props) => {
   const [titulo, setTitulo] = useState(seccion?.titulo ?? ""); // Copias de los datos actuales, el usuario edita las copias
   const [descripcion, setDescripcion] = useState(seccion?.descripcion ?? "");
 
@@ -79,7 +79,7 @@ export const EditarSeccion = ({ seccion, onCerrar, onGuardar }: Props) => {
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Icon className="bg-copachisa/40 text-black">
+              <Modal.Icon className="bg-neutral-200">
                 <MdLayers className="size-5" />
               </Modal.Icon>
               <Modal.Heading>Editar sección</Modal.Heading>

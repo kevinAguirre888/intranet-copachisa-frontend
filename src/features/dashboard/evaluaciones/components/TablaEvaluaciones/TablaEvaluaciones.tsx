@@ -3,28 +3,38 @@ import { Skeleton, Table } from "@heroui/react";
 import { formatearFecha } from "@/shared/utils/fechas";
 import { SwitchEstado } from "@/shared/components/SwitchEstado";
 import { EstadoError } from "@/shared/components/EstadoError";
-import { useEvaluaciones } from "../hooks/useEvaluaciones";
+import type { useEvaluaciones } from "../../hooks/useEvaluaciones";
 import { BotonEditar } from "./BotonEditar";
 import { ModalEditar } from "./ModalEditar";
-import type { EvaluacionRead } from "../types/evaluaciones";
+import type { EvaluacionRead } from "../../types/evaluaciones";
 import { DropdownAcciones } from "./DropdownAcciones";
 
-export const TablaEvaluaciones = () => {
-  const {
-    evaluaciones,
-    cargando,
-    error,
-    recargar,
-    cambiarEstatus,
-    editarEvaluacion,
-  } = useEvaluaciones(); // Hooks para lógica de estados de UI
+// El estado vive en EvaluacionesPage (se comparte con el modal de crear) y llega por props
+type Props = Pick<
+  ReturnType<typeof useEvaluaciones>,
+  | "evaluaciones"
+  | "cargando"
+  | "error"
+  | "recargar"
+  | "cambiarEstatus"
+  | "editarEvaluacion"
+>;
+
+export const TablaEvaluaciones = ({
+  evaluaciones,
+  cargando,
+  error,
+  recargar,
+  cambiarEstatus,
+  editarEvaluacion,
+}: Props) => {
   const [editando, setEditando] = useState<EvaluacionRead | null>(null); // Estado para saber si está editando una evaluación.
 
   if (error) return <EstadoError mensaje={error} onReintentar={recargar} />;
 
   return (
     <>
-      <Table>
+      <Table className="">
         <Table.ScrollContainer>
           <Table.Content aria-label="Evaluaciones" className="min-w-150">
             <Table.Header>

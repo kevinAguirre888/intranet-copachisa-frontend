@@ -1,5 +1,5 @@
 import { MdStar } from "react-icons/md";
-import type { Escala, Seccion } from "../types/evaluaciones";
+import type { Escala, Seccion } from "../../types/evaluaciones";
 
 type Props = {
   seccion: Seccion;
@@ -14,7 +14,7 @@ type Props = {
  * @param numero - Posición de la sección dentro de la evaluación (empieza en 1).
  * @param escalas - Escalas a mostrar en los contenidos de tipo "Escala".
  */
-export const SeccionPrevisualizacion = ({
+export const SeccionEvaluacion = ({
   seccion,
   numero,
   escalas,

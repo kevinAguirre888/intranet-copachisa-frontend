@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@heroui/react";
 import { MdAssignment } from "react-icons/md";
-import type { EvaluacionRead, EvaluacionUpdate } from "../types/evaluaciones";
+import type { EvaluacionRead, EvaluacionUpdate } from "../../types/evaluaciones";
  
 // Tipos de los parámetros del componente
 type Props = {
@@ -53,7 +53,7 @@ export const ModalEditar = ({ evaluacion, onCerrar, onGuardar }: Props) => {
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Icon className="bg-copachisa/40 text-black">
+              <Modal.Icon className="bg-neutral-200">
                 <MdAssignment className="size-5" />
               </Modal.Icon>
               <Modal.Heading>Editar evaluación</Modal.Heading>

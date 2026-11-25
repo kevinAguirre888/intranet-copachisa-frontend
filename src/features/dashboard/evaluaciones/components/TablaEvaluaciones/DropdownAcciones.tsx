@@ -3,7 +3,7 @@ import { Description, Dropdown, Label } from "@heroui/react";
 import { useNavigate } from "react-router";
 import { BotonAcciones } from "./BotonAcciones";
 import { useState } from "react";
-import { ModalSecciones } from "./ModalSecciones";
+import { ModalSecciones } from "../Secciones/ModalSecciones";
 
 type Props = {
   idEvaluacion: number;
